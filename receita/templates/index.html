@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Blog de Receitas</title>
+  </head>
+  <body>
+    <nav class="bg-white shadow-sm p-4 mb-8">
+        <h1 class="text-2xl font-bold text-center text-orange-600">🥘 Meu Blog de Receitas</h1>
+    </nav>
+    <main class="max-w-6xl mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {% for receita in receitas %}
+                <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
+                    {% if receita.imagem %}
+                        <img src="{{ receita.imagem.url }}" class="h-48 w-full object-cover">
+                    {% endif %}
+                    <div class="p-5">
+                        <span class="text-xs font-bold uppercase text-orange-500">{{ receita.categoria.nome }}</span>
+                        <h2 class="text-xl font-bold mt-2">{{ receita.titulo }}</h2>
+                        <p class="text-gray-600 text-sm mt-2 line-clamp-2">{{ receita.descricao_curta }}</p>
+                        
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-gray-500 text-xs">⏱️ {{ receita.tempo_preparo }} min</span>
+                            <a href="{% url 'detalhe_receita' receita.slug %}" class="text-orange-600 font-semibold hover:underline">Ver Receita →</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="col-span-3 text-center text-gray-500">Nenhuma receita publicada ainda. 👨‍🍳</p>
+            {% endfor %}
+        </div>
+    </main>
+  </body>
+</html>

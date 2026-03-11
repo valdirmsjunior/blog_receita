@@ -15,3 +15,5 @@ media/
 .DS_Store
 .env
 .python-version
+
+.prettierignore
