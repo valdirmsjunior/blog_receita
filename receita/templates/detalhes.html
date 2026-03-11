@@ -1,73 +1,48 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>{{ receita.titulo }} - Meu Blog</title>
-</head>
-<body class="bg-gray-50 text-gray-900 pb-20">
-    <nav class="bg-white shadow-sm p-4 mb-8">
-        <div class="max-w-4xl mx-auto flex justify-between items-center">
-            <a href="{% url 'index' %}" class="text-xl font-bold text-orange-600">🥘 Meu Blog</a>
-            <a href="{% url 'index' %}" class="text-sm text-gray-500 hover:text-orange-600">← Voltar para a Home</a>
+{% extends 'base.html' %}
+
+{% block title %}{{ receita.titulo }} - Receitaria{% endblock %}
+
+{% block content %}
+<article class="max-w-4xl mx-auto px-4">
+    <div class="mb-10 text-center">
+        <span class="text-orange-500 font-black text-xs uppercase tracking-widest">{{ receita.categoria.nome }}</span>
+        <h1 class="text-5xl font-black text-slate-900 mt-4 mb-6">{{ receita.titulo }}</h1>
+        <p class="text-slate-500 text-lg italic leading-relaxed max-w-2xl mx-auto">{{ receita.descricao_curta }}</p>
+    </div>
+
+    {% if receita.imagem %}
+        <div class="rounded-[40px] overflow-hidden shadow-2xl mb-12 h-[500px]">
+            <img src="{{ receita.imagem.url }}" class="w-full h-full object-cover">
         </div>
-    </nav>
+    {% endif %}
 
-    <article class="max-w-4xl mx-auto px-4">
-        <header class="text-center mb-8">
-            <span class="bg-orange-100 text-orange-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                {{ receita.categoria.nome }}
-            </span>
-            <h1 class="text-4xl md:text-5xl font-extrabold mt-4 mb-2">{{ receita.titulo }}</h1>
-            <p class="text-gray-500 italic">{{ receita.descricao_curta }}</p>
-        </header>
-
-        {% if receita.imagem %}
-        <div class="rounded-3xl overflow-hidden shadow-2xl mb-10">
-            <img src="{{ receita.imagem.url }}" alt="{{ receita.titulo }}" class="w-full h-[400px] object-cover">
-        </div>
-        {% endif %}
-
-        <div class="grid grid-cols-3 gap-4 mb-12 py-6 border-y border-gray-200">
-            <div class="text-center">
-                <span class="block text-gray-400 uppercase text-[10px] font-bold">Tempo</span>
-                <span class="text-lg font-semibold">⏱️ {{ receita.tempo_preparo }} min</span>
-            </div>
-            <div class="text-center border-x border-gray-200">
-                <span class="block text-gray-400 uppercase text-[10px] font-bold">Rendimento</span>
-                <span class="text-lg font-semibold">🍽️ {{ receita.porcoes }} porções</span>
-            </div>
-            <div class="text-center">
-                <span class="block text-gray-400 uppercase text-[10px] font-bold">Dificuldade</span>
-                <span class="text-lg font-semibold">
-                    {% if receita.dificuldade == 'F' %}🟢 Fácil
-                    {% elif receita.dificuldade == 'M' %}🟡 Médio
-                    {% else %}🔴 Difícil {% endif %}
-                </span>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
+        <div class="lg:col-span-1">
+            <h3 class="text-2xl font-black mb-8 border-b-4 border-orange-500 inline-block">Ingredientes</h3>
+            <div class="bg-orange-50 p-8 rounded-3xl text-slate-700 leading-relaxed text-sm">
+                {{ receita.ingredientes|linebreaks }}
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div class="md:col-span-1">
-                <h3 class="text-2xl font-bold mb-6 flex items-center">
-                    <span class="w-8 h-8 bg-orange-600 text-white rounded-full flex items-center justify-center text-sm mr-3">1</span>
-                    Ingredientes
-                </h3>
-                <div class="prose prose-orange text-gray-700 leading-relaxed">
-                    {{ receita.ingredientes|linebreaks }}
+        <div class="lg:col-span-2">
+            <h3 class="text-2xl font-black mb-8 border-b-4 border-orange-500 inline-block">Modo de Preparo</h3>
+            <div class="prose prose-slate max-w-none text-slate-700 leading-loose text-lg">
+                {{ receita.modo_preparo|linebreaks }}
+            </div>
+            
+            <div class="mt-16 p-8 bg-slate-100 rounded-3xl flex items-center justify-between">
+                <div>
+                    <p class="text-[10px] font-black uppercase text-slate-400 mb-1">Dificuldade</p>
+                    <p class="font-bold text-slate-800 uppercase">
+                        {% if receita.dificuldade == 'F' %}Fácil 🟢{% elif receita.dificuldade == 'M' %}Média 🟡{% else %}Difícil 🔴{% endif %}
+                    </p>
                 </div>
-            </div>
-
-            <div class="md:col-span-2">
-                <h3 class="text-2xl font-bold mb-6 flex items-center">
-                    <span class="w-8 h-8 bg-orange-600 text-white rounded-full flex items-center justify-center text-sm mr-3">2</span>
-                    Modo de Preparo
-                </h3>
-                <div class="prose prose-orange text-gray-700 leading-relaxed bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-                    {{ receita.modo_preparo|linebreaks }}
+                <div class="text-right">
+                    <p class="text-[10px] font-black uppercase text-slate-400 mb-1">Publicado em</p>
+                    <p class="font-bold text-slate-800">{{ receita.data_criacao|date:"d/m/Y" }}</p>
                 </div>
             </div>
         </div>
-    </article>
-</body>
-</html>
+    </div>
+</article>
+{% endblock %}

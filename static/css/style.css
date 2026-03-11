@@ -1,0 +1,25 @@
+/* Estilos globais customizados */
+:root {
+    --primary-orange: #ea580c;
+}
+
+.font-recipe {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Efeito suave de scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Customização da barra de rolagem */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--primary-orange);
+    border-radius: 10px;
+}
