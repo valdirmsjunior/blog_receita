@@ -16,6 +16,16 @@
             <a href="{% url 'index' %}" class="text-2xl font-black text-orange-600 tracking-tighter italic hover:opacity-80 transition">
                 🥘 RECEITARIA
             </a>
+            <form action="{% url 'index' %}" method="GET" class="hidden md:flex flex-1 max-w-sm mx-8">
+                <div class="relative w-full">
+                    <input type="text" name="q" value="{{ search|default:'' }}" 
+                        placeholder="Pesquisar receitas..." 
+                        class="w-full bg-slate-100 border-none rounded-xl py-2 pl-4 pr-10 text-sm focus:ring-2 focus:ring-orange-500 transition">
+                    <button type="submit" class="absolute right-3 top-2 text-slate-400">
+                        🔍
+                    </button>
+                </div>
+            </form>
             <div class="hidden md:flex items-center gap-8 text-sm font-bold uppercase tracking-widest">
                 <a href="{% url 'index' %}" class="hover:text-orange-600 transition">Início</a>
                 <a href="#" class="hover:text-orange-600 transition">Categorias</a>
