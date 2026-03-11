@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 # Create your models here.
 class Categoria(models.Model):
@@ -40,3 +41,8 @@ class Receita(models.Model):
         verbose_name = "Receita"
         verbose_name_plural = "Receitas"
         ordering = ['-data_criacao']
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.titulo)
+        super().save(*args, **kwargs)
