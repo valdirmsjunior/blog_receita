@@ -2,18 +2,52 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyd
+*.pyo
+*.egg-info/
+.eggs/
+.tox/
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Ambientes Virtuais
+venv/
 .venv/
 env/
 
 # Django
-db.sqlite3
+*.log
 local_settings.py
-staticfiles/
+db.sqlite3
+db.sqlite3-journal
 media/
+staticfiles/
+static_root/
 
-# Sistema
-.DS_Store
+# Variáveis de Ambiente e Segredos
 .env
-.python-version
+.env.*
+!.env.example
+secrets.json
 
+# Sistema Operacional
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDEs / Editores de Código
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Ferramentas diversas e Front-end (caso exista node_modules no django tailwind)
+node_modules/
+.python-version
 .prettierignore
